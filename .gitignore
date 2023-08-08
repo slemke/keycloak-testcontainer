@@ -1,0 +1,8 @@
+# ignore node_modules
+node_modules
+
+# ignore build output
+dist/**
+
+# don't ignore .gitkeep files
+!.gitkeep
