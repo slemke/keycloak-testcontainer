@@ -19,8 +19,8 @@ describe('Keycloak Testcontainer', () => {
 
     beforeAll(async () => {
         keycloakContainer = await new KeycloakContainer()
-		    .withExposedPorts(8080)
-			.start();
+            .withExposedPorts(8080)
+            .start();
     });
 
     afterAll(async () => {
