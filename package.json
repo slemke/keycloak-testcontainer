@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "engines": {
     "node": ">=16.0.0",
