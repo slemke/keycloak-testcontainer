@@ -1,7 +1,7 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  verbose: true,
+	verbose: true,
 	collectCoverageFrom: [
 		'src/**/*.ts'
 	],
