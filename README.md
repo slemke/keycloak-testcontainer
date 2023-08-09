@@ -130,3 +130,26 @@ const container = await new KeycloakContainer()
     .start();
 await container.restart();
 ```
+
+### Detailed Example
+
+This example contains multiple different options when starting a Keycloak testcontainer:
+
+```js
+import { KeycloakContainer } from 'node-keycloak-testcontainer';
+
+const container = await new KeycloakContainer()
+    .withAdminUser({
+        username: 'custom',
+        password: 'test'
+    })
+    .withFeatures([
+        'recovery-codes',
+        'token-exchange'
+    ])
+    .withDisabledFeatures([
+        'impersonation'
+    ])
+    .withMetrics()
+    .start();
+```
