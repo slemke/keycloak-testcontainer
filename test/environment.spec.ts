@@ -13,15 +13,14 @@ describe('Environment Builder', () => {
 	});
 
 	it('should build configuration with custom admin user', () => {
-		const customAdminUser = {
+		const builder = new EnvironmentBuilder();
+		builder.withAdminUser({
+			username: 'customAdmin',
+			password: 'customPassword'
+		});
+		expect(builder.build()).toStrictEqual({
 			KEYCLOAK_ADMIN: 'customAdmin',
 			KEYCLOAK_ADMIN_PASSWORD: 'customPassword'
-		};
-		const builder = new EnvironmentBuilder();
-		builder.withAdminUser(
-			customAdminUser.KEYCLOAK_ADMIN,
-			customAdminUser.KEYCLOAK_ADMIN_PASSWORD
-		);
-		expect(builder.build()).toStrictEqual(customAdminUser);
+		});
 	});
 });

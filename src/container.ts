@@ -4,7 +4,7 @@ import {
 	StartedTestContainer
 } from 'testcontainers';
 import { CommandsBuilder } from './commands';
-import { EnvironmentBuilder } from './environment';
+import { AdminUser, EnvironmentBuilder } from './environment';
 
 export class KeycloakContainer extends GenericContainer {
 
@@ -35,8 +35,8 @@ export class KeycloakContainer extends GenericContainer {
 		return this;
 	}
 
-	public withAdminUser(username: string, password: string): this {
-		this.environmentBuilder.withAdminUser(username, password);
+	public withAdminUser(adminUser: AdminUser): this {
+		this.environmentBuilder.withAdminUser(adminUser);
 		return this;
 	}
 

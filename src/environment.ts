@@ -1,18 +1,24 @@
-export class EnvironmentBuilder {
-	
-	private adminUsername: string = 'admin';
+export interface AdminUser {
+	username: string;
+	password: string;
+}
 
-	private adminPassword: string = 'admin';
-	
-	public withAdminUser(username: string, password: string) {
-		this.adminUsername = username;
-		this.adminPassword = password;
+export class EnvironmentBuilder {
+
+	private adminUser: AdminUser = {
+		username: 'admin',
+		password: 'admin'
+	};
+
+	public withAdminUser(adminUser: AdminUser) {
+		this.adminUser = adminUser;
 	}
 
 	public build(): { [key: string]: string } {
+		const { username, password } = this.adminUser;
 		return {
-			KEYCLOAK_ADMIN: this.adminUsername,
-			KEYCLOAK_ADMIN_PASSWORD: this.adminPassword
+			KEYCLOAK_ADMIN: username,
+			KEYCLOAK_ADMIN_PASSWORD: password
 		};
 	}
 }

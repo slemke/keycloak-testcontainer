@@ -92,7 +92,10 @@ const container = await new KeycloakContainer()
 
 ```js
 const container = await new KeycloakContainer()
-    .withAdminUser('admin', 'password')
+    .withAdminUser({
+        username: 'admin',
+        password: 'password'
+    })
     .start();
 ```
 
