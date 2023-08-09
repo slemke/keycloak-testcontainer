@@ -6,7 +6,6 @@ describe('Container', () => {
 
 	it('should start new keycloak container', async () => {
 		startedContainer = await new KeycloakContainer()
-			.withExposedPorts(8080)
 			.start();
 	});
 

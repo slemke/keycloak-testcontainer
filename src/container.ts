@@ -8,6 +8,8 @@ import { EnvironmentBuilder } from './environment';
 
 export class KeycloakContainer extends GenericContainer {
 
+	private port: number = 8080;
+
 	private commandsBuilder: CommandsBuilder;
 
 	private environmentBuilder: EnvironmentBuilder;
@@ -39,6 +41,7 @@ export class KeycloakContainer extends GenericContainer {
 	}
 
   public override async start(): Promise<StartedKeycloakContainer> {
+		this.withExposedPorts(this.port);
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start());

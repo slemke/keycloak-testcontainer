@@ -43,7 +43,6 @@ Currently, this package provides the following features:
 import { KeycloakContainer } from 'node-keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .start();
 ```
 
@@ -51,7 +50,6 @@ To use a specific version you can add the version of choice as a constructor arg
 
 ```js
 const container = await new KeycloakContainer('19.0.2')
-    .withExposedPorts(8080)
     .start();
 ```
 
@@ -65,7 +63,6 @@ You can run this testcontainer with a bunch of different commands to obtain diff
 
 ```js
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .withMetrics()
     .start();
 ```
@@ -74,7 +71,6 @@ const container = await new KeycloakContainer()
 
 ```js
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .withFeatures([
         'docker',
         'token-exchange'
@@ -86,7 +82,6 @@ const container = await new KeycloakContainer()
 
 ```js
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .withDisabledFeatures([
         'impersonation',
     ])
@@ -97,8 +92,19 @@ const container = await new KeycloakContainer()
 
 ```js
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .withAdminUser('admin', 'password')
+    .start();
+```
+
+### With exposed ports
+
+Just like any testcontainer you can defined the exposed ports to the host. 
+By default this package exposes keycloaks default port of 8080.
+If you like to enable additional ports you can also do the following:
+
+```js
+const container = await new KeycloakContainer()
+    .withExposedPorts(9000);
     .start();
 ```
 
@@ -108,7 +114,6 @@ const container = await new KeycloakContainer()
 import { KeycloakContainer } from 'node-keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .start();
 await container.stop();
 ```
@@ -119,7 +124,6 @@ await container.stop();
 import { KeycloakContainer } from 'node-keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
-    .withExposedPorts(8080)
     .start();
 await container.restart();
 ```
