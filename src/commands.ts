@@ -17,6 +17,13 @@ export class CommandsBuilder {
 
 	private shouldImportRealm = false;
 
+	private isHealthEnabled = false;
+
+	public withHealth(): this {
+		this.isHealthEnabled = true;
+		return this;
+	}
+
 	public withRealmImport(): this {
 		this.shouldImportRealm = true;
 		return this;
@@ -61,6 +68,9 @@ export class CommandsBuilder {
 		}
 		if (this.shouldImportRealm) {
 			commands.push('--import-realm');
+		}
+		if (this.isHealthEnabled) {
+			commands.push('--health-enabled=true');
 		}
 		return commands;
 	}

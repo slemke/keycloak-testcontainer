@@ -21,6 +21,11 @@ export class KeycloakContainer extends GenericContainer {
 		this.environmentBuilder = new EnvironmentBuilder();
 	}
 
+	public withHealth(): this {
+		this.commandsBuilder.withHealth();
+		return this;
+	}
+
 	public withRealmImport(source: string): this {
 		this.withCopyDirectoriesToContainer([{
 			source,

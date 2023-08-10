@@ -120,6 +120,14 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With health
+
+```js
+const container = await new KeycloakContainer()
+    .withHealth()
+    .start();
+```
+
 ### With exposed ports
 
 Just like any testcontainer you can defined the exposed ports to the host. 
