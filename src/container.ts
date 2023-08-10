@@ -1,4 +1,4 @@
-import { 
+import {
 	AbstractStartedContainer,
 	GenericContainer,
 	StartedTestContainer
@@ -19,6 +19,11 @@ export class KeycloakContainer extends GenericContainer {
 		super(`quay.io/keycloak/keycloak:${version}`);
 		this.commandsBuilder = new CommandsBuilder();
 		this.environmentBuilder = new EnvironmentBuilder();
+	}
+
+	public withHostname(hostname: string): this {
+		this.environmentBuilder.withHostname(hostname);
+		return this;
 	}
 
 	public withHealth(): this {
@@ -49,7 +54,7 @@ export class KeycloakContainer extends GenericContainer {
 		return this;
 	}
 
-	public withDisabledFeatures(disabledFeatures: string[]): this { 
+	public withDisabledFeatures(disabledFeatures: string[]): this {
 		this.commandsBuilder.withDisabledFeatures(disabledFeatures);
 		return this;
 	}
@@ -59,16 +64,16 @@ export class KeycloakContainer extends GenericContainer {
 		return this;
 	}
 
-  public override async start(): Promise<StartedKeycloakContainer> {
+	public override async start(): Promise<StartedKeycloakContainer> {
 		this.withExposedPorts(...this.ports);
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start());
-  }
+	}
 }
 
 export class StartedKeycloakContainer extends AbstractStartedContainer {
-  constructor(startedTestContainer: StartedTestContainer) {
+	constructor(startedTestContainer: StartedTestContainer) {
 		super(startedTestContainer);
-  }
+	}
 }

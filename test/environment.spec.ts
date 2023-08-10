@@ -12,6 +12,16 @@ describe('Environment Builder', () => {
 		expect(builder.build()).toStrictEqual(defaultEnvironmentConfiguration);
 	});
 
+	it('should build configuration with custom hostname', () => {
+		const hostname = 'localhost';
+		const builder = new EnvironmentBuilder();
+		builder.withHostname(hostname);
+		expect(builder.build()).toStrictEqual({
+			...defaultEnvironmentConfiguration,
+			KC_HOSTNAME: hostname
+		});
+	});
+
 	it('should build configuration with custom admin user', () => {
 		const builder = new EnvironmentBuilder();
 		builder.withAdminUser({

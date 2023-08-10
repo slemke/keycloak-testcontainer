@@ -128,6 +128,14 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With custom hostname
+
+```js
+const container = await new KeycloakContainer()
+    .withHostname('localhost')
+    .start();
+```
+
 ### With exposed ports
 
 Just like any testcontainer you can defined the exposed ports to the host. 
