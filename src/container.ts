@@ -9,7 +9,7 @@ import { Keycloak } from './keycloak';
 
 export class KeycloakContainer extends GenericContainer {
 
-	private port: number = 8080;
+	private ports: number[] = [8080, 8443];
 
 	private commandsBuilder: CommandsBuilder;
 
@@ -60,7 +60,7 @@ export class KeycloakContainer extends GenericContainer {
 	}
 
   public override async start(): Promise<StartedKeycloakContainer> {
-		this.withExposedPorts(this.port);
+		this.withExposedPorts(...this.ports);
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start());
