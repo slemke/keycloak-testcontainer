@@ -3,7 +3,7 @@ import {
 	GenericContainer,
 	StartedTestContainer
 } from 'testcontainers';
-import { CommandsBuilder } from './commands';
+import { CommandsBuilder, DatabaseOptions } from './commands';
 import { AdminUser, EnvironmentBuilder } from './environment';
 
 export class KeycloakContainer extends GenericContainer {
@@ -18,6 +18,11 @@ export class KeycloakContainer extends GenericContainer {
 		super(`quay.io/keycloak/keycloak:${version}`);
 		this.commandsBuilder = new CommandsBuilder();
 		this.environmentBuilder = new EnvironmentBuilder();
+	}
+
+	public withDatabase(options: DatabaseOptions): this {
+		this.commandsBuilder.withDatabase(options);
+		return this;
 	}
 
 	public withMetrics(): this {

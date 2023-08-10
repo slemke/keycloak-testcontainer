@@ -36,6 +36,23 @@ describe('Commands Builder', () => {
 		]);
 	});
 
+	it('should build commands with database options', () => {
+		const commandsBuilder = new CommandsBuilder();
+		commandsBuilder.withDatabase({
+			vendor: 'postgres',
+			url: 'jdbc-url',
+			username: 'dbuser',
+			password: 'dbpassword'
+		});
+		expect(commandsBuilder.build()).toStrictEqual([
+			...defaultCommands,
+			'--db=postgres',
+			'--db-url=jdbc-url',
+			'--db-username=dbuser',
+			'--db-password=dbpassword'
+		]);
+	});
+
 	it('should build all commands', () => {
 		const commandsBuilder = new CommandsBuilder();
 		commandsBuilder.withMetrics();

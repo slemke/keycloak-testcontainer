@@ -99,6 +99,20 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+
+### With database
+
+```js
+const container = await new KeycloakContainer()
+    .withDatabase({
+        vendor: 'postgres',
+        url: 'your-jdbc-url-here',
+        username: 'dbuser',
+        password: 'dbpassword'
+    });
+    .start();
+```
+
 ### With exposed ports
 
 Just like any testcontainer you can defined the exposed ports to the host. 
