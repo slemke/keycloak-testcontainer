@@ -99,7 +99,6 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
-
 ### With database
 
 ```js
@@ -110,6 +109,14 @@ const container = await new KeycloakContainer()
         username: 'dbuser',
         password: 'dbpassword'
     });
+    .start();
+```
+
+### With realm import
+
+```js
+const container = await new KeycloakContainer()
+    .withRealmImport('/path/to/realm/data')
     .start();
 ```
 
