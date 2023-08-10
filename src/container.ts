@@ -9,7 +9,7 @@ import { Keycloak } from './keycloak';
 
 export class KeycloakContainer extends GenericContainer {
 
-	private ports: number[] = [8080, 8443];
+	private ports: number[] = [8080];
 
 	private commandsBuilder: CommandsBuilder;
 

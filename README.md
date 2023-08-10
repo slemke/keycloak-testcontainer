@@ -139,7 +139,7 @@ const container = await new KeycloakContainer()
 ### With exposed ports
 
 Just like any testcontainer you can defined the exposed ports to the host. 
-By default this package exposes keycloaks default ports of 8080 and 8443.
+By default this package exposes keycloaks default port of 8080.
 If you like to enable additional ports you can also do the following:
 
 ```js
