@@ -5,6 +5,7 @@ import {
 } from 'testcontainers';
 import { CommandsBuilder, DatabaseOptions } from './commands';
 import { AdminUser, EnvironmentBuilder } from './environment';
+import { Keycloak } from './keycloak';
 
 export class KeycloakContainer extends GenericContainer {
 
@@ -18,6 +19,14 @@ export class KeycloakContainer extends GenericContainer {
 		super(`quay.io/keycloak/keycloak:${version}`);
 		this.commandsBuilder = new CommandsBuilder();
 		this.environmentBuilder = new EnvironmentBuilder();
+	}
+
+	public withRealmImport(source: string): this {
+		this.withCopyDirectoriesToContainer([{
+			source,
+			target: Keycloak.IMPORT_PATH
+		}]);
+		return this;
 	}
 
 	public withDatabase(options: DatabaseOptions): this {

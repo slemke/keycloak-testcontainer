@@ -15,6 +15,13 @@ export class CommandsBuilder {
 
 	private database: DatabaseOptions | undefined;
 
+	private shouldImportRealm = false;
+
+	public withRealmImport(): this {
+		this.shouldImportRealm = true;
+		return this;
+	}
+
 	public withDatabase(options: DatabaseOptions): this {
 		this.database = options; 
 		return this;
@@ -51,6 +58,9 @@ export class CommandsBuilder {
 			commands.push(`--db-url=${this.database.url}`);
 			commands.push(`--db-username=${this.database.username}`);
 			commands.push(`--db-password=${this.database.password}`);
+		}
+		if (this.shouldImportRealm) {
+			commands.push('--import-realm');
 		}
 		return commands;
 	}

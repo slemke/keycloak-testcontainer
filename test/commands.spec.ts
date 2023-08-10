@@ -53,6 +53,15 @@ describe('Commands Builder', () => {
 		]);
 	});
 
+	it('should build commands with import realm option', () => {
+		const commandsBuilder = new CommandsBuilder();
+		commandsBuilder.withRealmImport();
+		expect(commandsBuilder.build()).toStrictEqual([
+			...defaultCommands,
+			'--import-realm',
+		]);
+	});
+
 	it('should build all commands', () => {
 		const commandsBuilder = new CommandsBuilder();
 		commandsBuilder.withMetrics();
