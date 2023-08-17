@@ -136,6 +136,14 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With theme caching disabled
+
+```js
+const container = await new KeycloakContainer()
+    .withThemeCacheDisabled()
+    .start();
+```
+
 ### With exposed ports
 
 Just like any testcontainer you can defined the exposed ports to the host. 
