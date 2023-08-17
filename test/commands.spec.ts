@@ -1,4 +1,4 @@
-import { CommandsBuilder } from '../src/commands';
+import { CommandsBuilder } from '../src/configuration/commands';
 
 describe('Commands Builder', () => {
 

@@ -1,3 +1,3 @@
-import { KeycloakContainer } from './container';
+import { KeycloakContainer } from './container/container';
 
 export default new KeycloakContainer();

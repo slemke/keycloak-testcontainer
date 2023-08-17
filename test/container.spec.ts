@@ -1,4 +1,5 @@
-import { KeycloakContainer, StartedKeycloakContainer } from '../src/container';
+import { KeycloakContainer } from '../src/container/container';
+import { StartedKeycloakContainer } from '../src/container/started-container';
 
 describe('Container', () => {
 

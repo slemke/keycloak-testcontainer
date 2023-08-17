@@ -1,11 +1,10 @@
 import {
-	AbstractStartedContainer,
 	GenericContainer,
-	StartedTestContainer
 } from 'testcontainers';
-import { CommandsBuilder, DatabaseOptions } from './commands';
-import { AdminUser, EnvironmentBuilder } from './environment';
-import { Keycloak } from './keycloak';
+import { CommandsBuilder, DatabaseOptions } from '../configuration/commands';
+import { AdminUser, EnvironmentBuilder } from '../configuration/environment';
+import { Keycloak } from '../keycloak';
+import { StartedKeycloakContainer } from './started-container';
 
 export class KeycloakContainer extends GenericContainer {
 
@@ -69,11 +68,5 @@ export class KeycloakContainer extends GenericContainer {
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start());
-	}
-}
-
-export class StartedKeycloakContainer extends AbstractStartedContainer {
-	constructor(startedTestContainer: StartedTestContainer) {
-		super(startedTestContainer);
 	}
 }
