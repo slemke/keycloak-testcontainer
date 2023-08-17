@@ -18,6 +18,8 @@ export class CommandsBuilder {
 	private shouldImportRealm = false;
 
 	private isHealthEnabled = false;
+	
+	private isThemeCacheDisabled = false;
 
 	public withHealth(): this {
 		this.isHealthEnabled = true;
@@ -41,6 +43,11 @@ export class CommandsBuilder {
 
 	public withFeatures(features: string[]): this {
 		this.features = features;
+		return this;
+	}
+	
+	public withThemeCacheDisabled(): this {
+		this.isThemeCacheDisabled = true;
 		return this;
 	}
 
@@ -71,6 +78,11 @@ export class CommandsBuilder {
 		}
 		if (this.isHealthEnabled) {
 			commands.push('--health-enabled=true');
+		}
+		if (this.isThemeCacheDisabled) {
+			commands.push('--spi-theme-static-max-age=-1');
+			commands.push('--spi-theme-cache-themes=false');
+			commands.push('--spi-theme-cache-templates=false');
 		}
 		return commands;
 	}

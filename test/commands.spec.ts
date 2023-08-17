@@ -61,6 +61,17 @@ describe('Commands Builder', () => {
 			'--import-realm',
 		]);
 	});
+	
+	it('should build commands with theme cache disabled', () => {
+		const commandsBuilder = new CommandsBuilder();
+		commandsBuilder.withThemeCacheDisabled();
+		expect(commandsBuilder.build()).toStrictEqual([
+			...defaultCommands,
+			'--spi-theme-static-max-age=-1',
+			'--spi-theme-cache-themes=false',
+			'--spi-theme-cache-templates=false'
+		]);
+	});
 
 	it('should build all commands', () => {
 		const commandsBuilder = new CommandsBuilder();
