@@ -1,6 +1,9 @@
 name: 'Build'
 run-name: 'Build Package'
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
