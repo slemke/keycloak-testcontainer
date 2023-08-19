@@ -1,7 +1,7 @@
 {
-  "name": "node-keycloak-testcontainer",
+  "name": "keycloak-testcontainers",
   "version": "0.0.1",
-  "description": "This package adds the ability to run a keycloak testcontainer from node.js",
+  "description": "Run a keycloak testcontainer from node.js",
   "private": "true",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,19 +16,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slemke/node-keycloak-testcontainer.git"
+    "url": "git+https://github.com/slemke/keycloak-testcontainer.git"
   },
   "keywords": [
     "node",
     "keycloak",
-    "testcontainer"
+    "testcontainer",
+    "docker",
+    "container",
+    "testing",
+    "typescript"
   ],
   "author": "Sascha Lemke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/slemke/node-keycloak-testcontainer/issues"
+    "url": "https://github.com/slemke/keycloak-testcontainer/issues"
   },
-  "homepage": "https://github.com/slemke/node-keycloak-testcontainer#readme",
+  "homepage": "https://github.com/slemke/keycloak-testcontainer#readme",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
   "devDependencies": {
     "@types/jest": "29.5.3",
     "@typescript-eslint/eslint-plugin": "6.3.0",

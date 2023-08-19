@@ -1,11 +1,11 @@
-# node-keycloak-testcontainer
+# keycloak-testcontainer
 
 This package adds the ability to start keycloak as a testcontainer in node.js.
 
 ## Install
 
 ```
-npm install node-keycloak-testcontainer --save-dev
+npm install keycloak-testcontainer --save-dev
 ```
 
 ## Example
