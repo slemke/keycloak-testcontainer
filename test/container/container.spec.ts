@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Wait } from 'testcontainers';
 import { 
 	KeycloakContainer,
@@ -39,12 +40,12 @@ describe('Container', () => {
 	};
 
 	const verifyHealthEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const healthResponse = await fetch(`http://localhost:${container.getFirstMappedPort()}/health`);
+		const healthResponse = await axios.get(`http://localhost:${container.getFirstMappedPort()}/health`);
 		expect(healthResponse.status).toBe(200);
 	};
 
 	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const metricsResponse = await fetch(`http://localhost:${container.getFirstMappedPort()}/metrics`);
+		const metricsResponse = await axios.get(`http://localhost:${container.getFirstMappedPort()}/metrics`);
 		expect(metricsResponse.status).toBe(200);
 	};
 });
