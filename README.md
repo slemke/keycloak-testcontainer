@@ -13,22 +13,17 @@ npm install keycloak-testcontainer --save-dev
 You can start a keycloak container with a few lines of code:
 
 ```js
-describe('Keycloak Testcontainer', () => {
+import { Wait } from 'testcontainers';
+import { KeycloakContainer } from 'keycloak-testcontainer';
 
-    let keycloakContainer;
-
-    beforeAll(async () => {
-        keycloakContainer = await new KeycloakContainer()
-            .withExposedPorts(8080)
-            .start();
-    });
-
-    afterAll(async () => {
-        await keycloakContainer.stop();
-    });
+describe('Keycloak Testcontainer Example', () => {
 
     it('should run against keycloak', () => {
-        // ...
+        const container = await new KeycloakContainer().start();
+
+        // do something with the container
+            
+        await container.stop();
     });
 });
 ```
@@ -46,20 +41,15 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
-To use a specific version you can add the version of choice as a constructor argument:
-
-```js
-const container = await new KeycloakContainer('19.0.2')
-    .start();
-```
-
-By default, every testcontainer is always a keycloak in development mode.
+By default, every container is always a Keycloak in development mode.
 
 ### Starting a container with Keycloak commands
 
-You can run this testcontainer with a bunch of different commands to obtain different keycloak functionality.
+You can run this testcontainer with a bunch of different commands to obtain different Keycloak functionality. For a deeper explaination and up to date documentation have a look at the [Keycloak guides](https://www.keycloak.org/guides).
 
 ### With metrics
+
+To enable Keycloaks metrics endpoint start the container with the following command:
 
 ```js
 const container = await new KeycloakContainer()
@@ -68,6 +58,8 @@ const container = await new KeycloakContainer()
 ```
 
 ### With features
+
+Keycloak provides different additional or experimental features. A list of the supported features can be found [here](https://www.keycloak.org/server/features#_supported_features). To enable additional features start the container with the following command:
 
 ```js
 const container = await new KeycloakContainer()
@@ -80,6 +72,8 @@ const container = await new KeycloakContainer()
 
 ### With disabled features
 
+Keycloak allows to disable certain features. A list of the supported features can be found [here](https://www.keycloak.org/server/features#_supported_features). To disable certain features start the container with the following command:
+
 ```js
 const container = await new KeycloakContainer()
     .withDisabledFeatures([
@@ -89,6 +83,8 @@ const container = await new KeycloakContainer()
 ```
 
 ### With custom admin user
+
+To start the Keycloak container with a custom admin user start the container with the following command:
 
 ```js
 const container = await new KeycloakContainer()
@@ -100,6 +96,8 @@ const container = await new KeycloakContainer()
 ```
 
 ### With database
+
+Keycloak runs by default with a h2 database. To run Keycloak with a different database (for example postgres) you can start the container with the following command:
 
 ```js
 const container = await new KeycloakContainer()
@@ -114,13 +112,26 @@ const container = await new KeycloakContainer()
 
 ### With realm import
 
+To start the Keycloak container with a custom realm you can start the container with the following command:
+
 ```js
 const container = await new KeycloakContainer()
     .withRealmImport('/path/to/realm/data')
     .start();
 ```
 
+Ideally, the custom realm import is combined with a custom wait strategy. Keycloak first adds the master realm and the custom realm after it. This testcontainer waits by default for `/realms/master` to be available to recognize a healthy container. Waiting for a custom realm could look like this:
+
+```js
+const container = await new KeycloakContainer()
+    .withRealmImport('/path/to/realm/data')
+    .withWaitStrategy(Wait.forHttp('/realms/custom-realm-name-here', 8080))
+    .start();
+```
+
 ### With health
+
+To enable Keycloaks health endpoint start the container with the following command:
 
 ```js
 const container = await new KeycloakContainer()
@@ -130,6 +141,8 @@ const container = await new KeycloakContainer()
 
 ### With custom hostname
 
+To run Keycloak with a custom hostname start the container with the following command:
+
 ```js
 const container = await new KeycloakContainer()
     .withHostname('localhost')
@@ -138,21 +151,11 @@ const container = await new KeycloakContainer()
 
 ### With theme caching disabled
 
+To disable theme caching start the container with the following command:
+
 ```js
 const container = await new KeycloakContainer()
     .withThemeCacheDisabled()
-    .start();
-```
-
-### With exposed ports
-
-Just like any testcontainer you can defined the exposed ports to the host. 
-By default this package exposes keycloaks default port of 8080.
-If you like to enable additional ports you can also do the following:
-
-```js
-const container = await new KeycloakContainer()
-    .withExposedPorts(9000);
     .start();
 ```
 
@@ -174,27 +177,4 @@ import { KeycloakContainer } from 'node-keycloak-testcontainer';
 const container = await new KeycloakContainer()
     .start();
 await container.restart();
-```
-
-### Detailed Example
-
-This example contains multiple different options when starting a Keycloak testcontainer:
-
-```js
-import { KeycloakContainer } from 'node-keycloak-testcontainer';
-
-const container = await new KeycloakContainer()
-    .withAdminUser({
-        username: 'custom',
-        password: 'test'
-    })
-    .withFeatures([
-        'recovery-codes',
-        'token-exchange'
-    ])
-    .withDisabledFeatures([
-        'impersonation'
-    ])
-    .withMetrics()
-    .start();
 ```
