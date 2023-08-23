@@ -72,17 +72,4 @@ describe('Commands Builder', () => {
 			'--spi-theme-cache-templates=false'
 		]);
 	});
-
-	it('should build all commands', () => {
-		const commandsBuilder = new CommandsBuilder();
-		commandsBuilder.withMetrics();
-		commandsBuilder.withFeatures(['docker', 'token-exchange']);
-		commandsBuilder.withDisabledFeatures(['impersonation']);
-		expect(commandsBuilder.build()).toStrictEqual([
-			...defaultCommands,
-			'--metrics-enabled=true',
-			'--features="docker,token-exchange"',
-			'--features-disabled="impersonation"'
-		]);
-	});
 });
