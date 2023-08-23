@@ -8,14 +8,43 @@ describe('Container', () => {
 
 	let startedContainer: StartedKeycloakContainer;
 
-	it('should start new keycloak container', async () => {
-		startedContainer = await new KeycloakContainer()
-			.withWaitStrategy(Wait.forHttp('/realms/master', 8080))
-			.start();
-	});
-
-
-	it('should stop keycloak container', async () => {
+	afterEach(async () => {
 		await startedContainer.stop();
 	});
+
+	it('should start new custom keycloak container', async () => {
+		startedContainer = await initCustomKeycloakContainer().start();
+		
+		await verifyHealthEndpointAvailability(startedContainer);
+		await verifyMetricsEndpointAvailability(startedContainer);
+	});
+
+	const initCustomKeycloakContainer = (): KeycloakContainer => {
+		return new KeycloakContainer()
+			.withWaitStrategy(Wait.forHttp('/health', 8080))
+			.withHostname('keycloak')
+			.withHealth()
+			.withFeatures([
+				'recovery-codes',
+				'token-exchange'
+			])
+			.withDisabledFeatures([
+				'impersonation'
+			])
+			.withAdminUser({
+				username: 'test',
+				password: '123'
+			})
+			.withMetrics();
+	};
+
+	const verifyHealthEndpointAvailability = async (container: StartedKeycloakContainer) => {
+		const healthResponse = await fetch(`http://localhost:${container.getFirstMappedPort()}/health`);
+		expect(healthResponse.status).toBe(200);
+	};
+
+	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer) => {
+		const metricsResponse = await fetch(`http://localhost:${container.getFirstMappedPort()}/metrics`);
+		expect(metricsResponse.status).toBe(200);
+	};
 });
