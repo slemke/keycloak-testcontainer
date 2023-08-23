@@ -1,4 +1,4 @@
-import { EnvironmentBuilder } from '../src/configuration/environment';
+import { EnvironmentBuilder } from '../../src/configuration/environment';
 
 describe('Environment Builder', () => {
 

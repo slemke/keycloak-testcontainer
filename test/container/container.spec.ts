@@ -1,7 +1,7 @@
 import { 
 	KeycloakContainer,
 	StartedKeycloakContainer
-} from '../src';
+} from '../../src';
 
 describe('Container', () => {
 
