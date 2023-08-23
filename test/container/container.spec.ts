@@ -1,3 +1,4 @@
+import { Wait } from 'testcontainers';
 import { 
 	KeycloakContainer,
 	StartedKeycloakContainer
@@ -9,6 +10,7 @@ describe('Container', () => {
 
 	it('should start new keycloak container', async () => {
 		startedContainer = await new KeycloakContainer()
+			.withWaitStrategy(Wait.forHttp('/realms/master', 8080))
 			.start();
 	});
 
