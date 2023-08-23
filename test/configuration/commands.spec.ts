@@ -36,6 +36,15 @@ describe('Commands Builder', () => {
 		]);
 	});
 
+	it('should build commands with health endpoint enabled', () => {
+		const commandsBuilder = new CommandsBuilder();
+		commandsBuilder.withHealth();
+		expect(commandsBuilder.build()).toStrictEqual([
+			...defaultCommands,
+			'--health-enabled=true'
+		]);
+	});
+
 	it('should build commands with database options', () => {
 		const commandsBuilder = new CommandsBuilder();
 		commandsBuilder.withDatabase({
