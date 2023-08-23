@@ -22,5 +22,8 @@ jobs:
       - name: Pull Keycloak Image
         run: docker pull quay.io/keycloak/keycloak:latest
 
+      - name: Test Package
+        run: npm run test
+
       - name: Build Package
         run: npm run build
