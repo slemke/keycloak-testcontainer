@@ -14,8 +14,8 @@ export class KeycloakContainer extends GenericContainer {
 
 	private environmentBuilder: EnvironmentBuilder;
 
-	constructor(version: string = 'latest') {
-		super(`quay.io/keycloak/keycloak:${version}`);
+	constructor() {
+		super(`quay.io/keycloak/keycloak:latest`);
 		this.commandsBuilder = new CommandsBuilder();
 		this.environmentBuilder = new EnvironmentBuilder();
 	}
