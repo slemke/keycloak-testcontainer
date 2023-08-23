@@ -1,5 +1,6 @@
 import {
 	GenericContainer,
+	Wait
 } from 'testcontainers';
 import { CommandsBuilder, DatabaseOptions } from '../configuration/commands';
 import { AdminUser, EnvironmentBuilder } from '../configuration/environment';
@@ -8,7 +9,9 @@ import { StartedKeycloakContainer } from './started-container';
 
 export class KeycloakContainer extends GenericContainer {
 
-	private ports: number[] = [8080];
+	private defaultPort = 8080;
+
+	private ports: number[] = [this.defaultPort];
 
 	private commandsBuilder: CommandsBuilder;
 
@@ -65,6 +68,7 @@ export class KeycloakContainer extends GenericContainer {
 
 	public override async start(): Promise<StartedKeycloakContainer> {
 		this.withExposedPorts(...this.ports);
+		this.withWaitStrategy(Wait.forHttp('/realms/master', this.defaultPort))
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start());
