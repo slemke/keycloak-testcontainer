@@ -62,10 +62,10 @@ export class CommandsBuilder {
 			commands.push('--metrics-enabled=true');
 		}
 		if (this.features.length > 0) {
-			commands.push(`--features="${this.features.join(',')}"`);
+			commands.push(`--features=${this.features.join(',')}`);
 		}
 		if (this.disabledFeatures.length > 0) {
-			commands.push(`--features-disabled="${this.disabledFeatures.join(',')}"`);
+			commands.push(`--features-disabled=${this.disabledFeatures.join(',')}`);
 		}
 		if (this.database) {
 			commands.push(`--db=${this.database.vendor}`);

@@ -14,7 +14,7 @@ describe('Commands Builder', () => {
 		commandsBuilder.withFeatures(['docker', 'token-exchange']);
 		expect(commandsBuilder.build()).toStrictEqual([
 			...defaultCommands,
-			'--features="docker,token-exchange"'
+			'--features=docker,token-exchange'
 		]);
 	});
 
@@ -23,7 +23,7 @@ describe('Commands Builder', () => {
 		commandsBuilder.withDisabledFeatures(['docker', 'token-exchange']);
 		expect(commandsBuilder.build()).toStrictEqual([
 			...defaultCommands,
-			'--features-disabled="docker,token-exchange"'
+			'--features-disabled=docker,token-exchange'
 		]);
 	});
 
