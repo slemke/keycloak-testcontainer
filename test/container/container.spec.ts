@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { Wait } from 'testcontainers';
-import { 
-	KeycloakContainer,
-	StartedKeycloakContainer
-} from '../../src';
+import KeycloakContainer, { StartedKeycloakContainer } from '../../src';
 
 describe('Container', () => {
 
@@ -15,7 +12,7 @@ describe('Container', () => {
 
 	it('should start new custom keycloak container', async () => {
 		startedContainer = await initCustomKeycloakContainer().start();
-		
+
 		await verifyHealthEndpointAvailability(startedContainer);
 		await verifyMetricsEndpointAvailability(startedContainer);
 	});

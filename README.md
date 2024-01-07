@@ -13,7 +13,7 @@ npm install keycloak-testcontainer --save-dev
 You can start a keycloak container with a few lines of code:
 
 ```js
-import { KeycloakContainer } from 'keycloak-testcontainer';
+import KeycloakContainer from 'keycloak-testcontainer';
 
 describe('Keycloak Testcontainer Example', () => {
 
@@ -21,7 +21,7 @@ describe('Keycloak Testcontainer Example', () => {
         const container = await new KeycloakContainer().start();
 
         // do something with the container
-            
+
         await container.stop();
     });
 });
@@ -34,7 +34,7 @@ Currently, this package provides the following features:
 ### Starting a container
 
 ```js
-import { KeycloakContainer } from 'keycloak-testcontainer';
+import KeycloakContainer from 'keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
     .start();
@@ -161,7 +161,7 @@ const container = await new KeycloakContainer()
 ### Stopping a container
 
 ```js
-import { KeycloakContainer } from 'keycloak-testcontainer';
+import KeycloakContainer from 'keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
     .start();
@@ -171,7 +171,7 @@ await container.stop();
 ### Restarting a container
 
 ```js
-import { KeycloakContainer } from 'keycloak-testcontainer';
+import KeycloakContainer from 'keycloak-testcontainer';
 
 const container = await new KeycloakContainer()
     .start();
