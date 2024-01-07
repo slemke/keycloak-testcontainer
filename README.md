@@ -8,6 +8,16 @@ This package adds the ability to start keycloak as a testcontainer in node.js.
 npm install keycloak-testcontainer --save-dev
 ```
 
+ES6 import
+```js
+import KeycloakContainer from 'keycloak-testcontainer';
+```
+
+Common js import:
+```js
+const KeycloakContainer = require('keycloak-testcontainer').default;
+```
+
 ## Example
 
 You can start a keycloak container with a few lines of code:
