@@ -1,6 +1,6 @@
 {
   "name": "keycloak-testcontainer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Run a Keycloak testcontainer with node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
