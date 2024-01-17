@@ -50,6 +50,6 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "testcontainers": "10.4.0"
+    "testcontainers": "10.6.0"
   }
 }
