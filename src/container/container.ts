@@ -3,7 +3,7 @@ import {
 	Wait
 } from 'testcontainers';
 import { CommandsBuilder, DatabaseOptions } from '../configuration/commands.js';
-import { AdminUser, EnvironmentBuilder } from '../configuration/environment.js';
+import { AdminUser, EnvironmentBuilder, defaultAdminUser } from '../configuration/environment.js';
 import { Keycloak } from '../keycloak.js';
 import { StartedKeycloakContainer } from './started-container.js';
 
@@ -16,6 +16,8 @@ export class KeycloakContainer extends GenericContainer {
 	private commandsBuilder: CommandsBuilder;
 
 	private environmentBuilder: EnvironmentBuilder;
+
+	private adminUser: AdminUser = defaultAdminUser;
 
 	constructor() {
 		super('quay.io/keycloak/keycloak:latest');
@@ -62,6 +64,7 @@ export class KeycloakContainer extends GenericContainer {
 	}
 
 	public withAdminUser(adminUser: AdminUser): this {
+		this.adminUser = adminUser;
 		this.environmentBuilder.withAdminUser(adminUser);
 		return this;
 	}
@@ -71,6 +74,6 @@ export class KeycloakContainer extends GenericContainer {
 		this.withWaitStrategy(Wait.forHttp('/realms/master', this.defaultPort));
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
-		return new StartedKeycloakContainer(await super.start());
+		return new StartedKeycloakContainer(await super.start(), this.adminUser);
 	}
 }
