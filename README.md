@@ -187,3 +187,26 @@ const container = await new KeycloakContainer()
     .start();
 await container.restart();
 ```
+
+### Admin Client
+
+It is possible to obtain an [admin client](https://www.npmjs.com/package/@keycloak/keycloak-admin-client) for the test container after starting the container. This admin client can be used to change configuration for different tests. You can obtain an admin client with the following command:
+
+```js
+const container = await new KeycloakContainer()
+    .start();
+
+container.getAdminClient({
+    baseUrl: 'http://localhost:8080',
+    realmName: 'master',
+    totp: '123456'
+});
+```
+
+The admin client can be customized by using an options object. By default the admin client uses `http://localhost:8080` as the base url and the default admin credentials. If you changed the admin credentials by using `withAdminUser(username, password)` the new credentials will be used by the admin client and don't need to be passed as an option.
+
+Currently, the client accepts the following options (all of them are optional):
+
+* `baseUrl`: The url pointing to keycloak
+* `realmName`: The name of the realm (default: `master`)
+* `totp`: optional one-time password (if required)
