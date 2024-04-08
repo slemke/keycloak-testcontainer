@@ -1,3 +1,4 @@
+import { describe, expect, it, afterEach } from 'vitest';
 import axios from 'axios';
 import { Wait } from 'testcontainers';
 import KeycloakContainer, { StartedKeycloakContainer } from '../../src';

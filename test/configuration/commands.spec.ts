@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { CommandsBuilder } from '../../src/configuration/commands';
 
 describe('Commands Builder', () => {
