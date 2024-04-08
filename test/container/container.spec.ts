@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Wait } from 'testcontainers';
 import KeycloakContainer, { StartedKeycloakContainer } from '../../src/index.js';
 
-describe('Container', () => {
+describe.sequential('Container', () => {
 
 	let startedContainer: StartedKeycloakContainer;
 
@@ -28,7 +28,7 @@ describe('Container', () => {
 			username: 'test',
 			password: 'test'
 		}).start();
-		
+
 		const client = await startedContainer.getAdminClient();
 		expect(client.realmName).toBe('master');
 	});
