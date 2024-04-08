@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "vitest"
+    "test": "vitest --coverage"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -40,14 +40,11 @@
     "package.json"
   ],
   "devDependencies": {
-    "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "7.5.0",
     "@typescript-eslint/parser": "7.5.0",
+    "@vitest/coverage-v8": "1.4.0",
     "axios": "1.6.8",
     "eslint": "8.57.0",
-    "jest": "29.7.0",
-    "ts-jest": "29.1.2",
-    "ts-node": "10.9.2",
     "typescript": "5.4.4",
     "vitest": "1.4.0"
   },

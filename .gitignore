@@ -10,5 +10,5 @@ dist/**
 # don't ignore .gitkeep files
 !.gitkeep
 
-# ignore jest coverage
+# ignore test coverage output
 coverage
