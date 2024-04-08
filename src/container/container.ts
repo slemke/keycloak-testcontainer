@@ -2,10 +2,10 @@ import {
 	GenericContainer,
 	Wait
 } from 'testcontainers';
-import { CommandsBuilder, DatabaseOptions } from '../configuration/commands';
-import { AdminUser, EnvironmentBuilder } from '../configuration/environment';
-import { Keycloak } from '../keycloak';
-import { StartedKeycloakContainer } from './started-container';
+import { CommandsBuilder, DatabaseOptions } from '../configuration/commands.js';
+import { AdminUser, EnvironmentBuilder } from '../configuration/environment.js';
+import { Keycloak } from '../keycloak.js';
+import { StartedKeycloakContainer } from './started-container.js';
 
 export class KeycloakContainer extends GenericContainer {
 

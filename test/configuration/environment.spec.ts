@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { EnvironmentBuilder } from '../../src/configuration/environment';
 
 describe('Environment Builder', () => {

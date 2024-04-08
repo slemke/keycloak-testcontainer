@@ -1,3 +1,4 @@
+import { describe, it } from 'vitest'
 import KeycloakContainer from '../src';
 
 describe('Import', () => {
