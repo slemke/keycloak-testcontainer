@@ -1,22 +1,23 @@
-import { describe, expect, it, afterEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import axios from 'axios';
-import { Wait } from 'testcontainers';
 import KeycloakContainer, { StartedKeycloakContainer } from '../../src/index.js';
 
 describe.sequential('Container', () => {
 
 	it('should start new custom keycloak container', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
+
 		await verifyHealthEndpointAvailability(startedContainer);
 		await verifyMetricsEndpointAvailability(startedContainer);
-		await startedContainer.stop();
+		await startedContainer.stop({ timeout: 10000 });
 	});
 
 	it('should be able to use admin client', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
+
 		const client = await startedContainer.getAdminClient();
 		expect(client.realmName).toBe('master');
-		await startedContainer.stop();
+		await startedContainer.stop({ timeout: 10000 });
 	});
 
 	it('should be able to use admin client with different admin user', async () => {
@@ -27,12 +28,11 @@ describe.sequential('Container', () => {
 
 		const client = await startedContainer.getAdminClient();
 		expect(client.realmName).toBe('master');
-		await startedContainer.stop();
+		await startedContainer.stop({ timeout: 10000 });
 	});
 
 	const initCustomKeycloakContainer = (): KeycloakContainer => {
 		return new KeycloakContainer()
-			.withWaitStrategy(Wait.forHttp('/realms/master', 8080))
 			.withHostname('keycloak')
 			.withHealth()
 			.withFeatures([
