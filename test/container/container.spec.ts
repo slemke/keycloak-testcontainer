@@ -45,10 +45,6 @@ describe.sequential('Container', () => {
 			.withDisabledFeatures([
 				'impersonation'
 			])
-			.withAdminUser({
-				username: 'test',
-				password: '123'
-			})
 			.withMetrics();
 	};
 
