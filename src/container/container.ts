@@ -71,7 +71,7 @@ export class KeycloakContainer extends GenericContainer {
 
 	public override async start(): Promise<StartedKeycloakContainer> {
 		this.withExposedPorts(...this.ports);
-		this.withWaitStrategy(Wait.forHttp('/realms/master', this.defaultPort));
+		this.withWaitStrategy(Wait.forLogMessage(/(.*)Running the server in development mode(.*)/));
 		this.withCommand(this.commandsBuilder.build());
 		this.withEnvironment(this.environmentBuilder.build());
 		return new StartedKeycloakContainer(await super.start(), this.adminUser);
