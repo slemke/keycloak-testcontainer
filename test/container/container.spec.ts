@@ -5,32 +5,29 @@ import KeycloakContainer, { StartedKeycloakContainer } from '../../src/index.js'
 
 describe.sequential('Container', () => {
 
-	let startedContainer: StartedKeycloakContainer;
-
-	afterEach(async () => {
+	it('should start new custom keycloak container', async () => {
+		const startedContainer = await initCustomKeycloakContainer().start();
+		await verifyHealthEndpointAvailability(startedContainer);
+		await verifyMetricsEndpointAvailability(startedContainer);
 		await startedContainer.stop();
 	});
 
-	it('should start new custom keycloak container', async () => {
-		startedContainer = await initCustomKeycloakContainer().start();
-		await verifyHealthEndpointAvailability(startedContainer);
-		await verifyMetricsEndpointAvailability(startedContainer);
-	});
-
 	it('should be able to use admin client', async () => {
-		startedContainer = await initCustomKeycloakContainer().start();
+		const startedContainer = await initCustomKeycloakContainer().start();
 		const client = await startedContainer.getAdminClient();
 		expect(client.realmName).toBe('master');
+		await startedContainer.stop();
 	});
 
 	it('should be able to use admin client with different admin user', async () => {
-		startedContainer = await initCustomKeycloakContainer().withAdminUser({
+		const startedContainer = await initCustomKeycloakContainer().withAdminUser({
 			username: 'test',
 			password: 'test'
 		}).start();
 
 		const client = await startedContainer.getAdminClient();
 		expect(client.realmName).toBe('master');
+		await startedContainer.stop();
 	});
 
 	const initCustomKeycloakContainer = (): KeycloakContainer => {
