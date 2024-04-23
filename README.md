@@ -129,15 +129,6 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
-Ideally, the custom realm import is combined with a custom wait strategy. Keycloak first adds the master realm and the custom realm after it. This testcontainer waits by default for `/realms/master` to be available to recognize a healthy container. Waiting for a custom realm could look like this:
-
-```js
-const container = await new KeycloakContainer()
-    .withRealmImport('/path/to/realm/data')
-    .withWaitStrategy(Wait.forHttp('/realms/custom-realm-name-here', 8080))
-    .start();
-```
-
 ### With health
 
 To enable Keycloaks health endpoint start the container with the following command:
