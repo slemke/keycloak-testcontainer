@@ -40,11 +40,11 @@
     "package.json"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "7.5.0",
-    "@typescript-eslint/parser": "7.5.0",
+    "@typescript-eslint/eslint-plugin": "7.9.0",
+    "@typescript-eslint/parser": "7.9.0",
     "@vitest/coverage-v8": "1.6.0",
     "axios": "1.6.8",
-    "eslint": "8.57.0",
+    "eslint": "9.3.0",
     "typescript": "5.4.5",
     "vitest": "1.6.0"
   },
