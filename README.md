@@ -18,6 +18,12 @@ Common js import:
 const KeycloakContainer = require('keycloak-testcontainer').default;
 ```
 
+## Support
+
+Currently, this package only supports the latest version of Keycloak.
+Older releases will work for older versions, but don't expect new releases to work
+for older Keycloak versions.
+
 ## Example
 
 You can start a keycloak container with a few lines of code:
