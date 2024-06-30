@@ -4,6 +4,8 @@ import KeycloakContainer, { StartedKeycloakContainer } from '../../src/index.js'
 
 describe.sequential('Container', () => {
 
+	const managementPort = 9000;
+
 	it('should start new custom keycloak container', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
 
@@ -46,12 +48,16 @@ describe.sequential('Container', () => {
 	};
 
 	const verifyHealthEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const healthResponse = await axios.get(`http://localhost:${container.getFirstMappedPort()}/health`);
+		const healthResponse = await axios.get(`http://localhost:${container.getMappedPort(managementPort)}/health`, {
+			timeout: 10000
+		});
 		expect(healthResponse.status).toBe(200);
 	};
 
 	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const metricsResponse = await axios.get(`http://localhost:${container.getFirstMappedPort()}/metrics`);
+		const metricsResponse = await axios.get(`http://localhost:${container.getMappedPort(managementPort)}/metrics`, {
+			timeout: 10000
+		});
 		expect(metricsResponse.status).toBe(200);
 	};
 });

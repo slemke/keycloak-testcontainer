@@ -11,7 +11,12 @@ export class KeycloakContainer extends GenericContainer {
 
 	private defaultPort = 8080;
 
-	private ports: number[] = [this.defaultPort];
+	private managementPort = 9000;
+
+	private ports: number[] = [
+		this.defaultPort,
+		this.managementPort
+	];
 
 	private commandsBuilder: CommandsBuilder;
 
