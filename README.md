@@ -18,11 +18,15 @@ Common js import:
 const KeycloakContainer = require('keycloak-testcontainer').default;
 ```
 
-## Support
+## Keycloak Version Support
 
 Currently, this package only supports the latest version of Keycloak.
 Older releases will work for older versions, but don't expect new releases to work
 for older Keycloak versions.
+
+## Node Version Support
+
+This package supports node.js version 18 and higher. This package has also been build and tested for non-lts releases.
 
 ## Example
 
