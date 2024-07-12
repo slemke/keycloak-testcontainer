@@ -169,6 +169,16 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With management path
+
+You can change the default path for the management interface (`/`) with the following command:
+
+```js
+const container = await new KeycloakContainer()
+    .withManagementPath('/admin')
+    .start();
+```
+
 ### With theme caching disabled
 
 To disable theme caching start the container with the following command:
