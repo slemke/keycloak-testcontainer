@@ -159,6 +159,16 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With management port
+
+You can change the default management port (`9000`) with the following command:
+
+```js
+const container = await new KeycloakContainer()
+    .withManagementPort(9001)
+    .start();
+```
+
 ### With theme caching disabled
 
 To disable theme caching start the container with the following command:
