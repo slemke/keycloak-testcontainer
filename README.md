@@ -139,6 +139,16 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With providers
+
+To add custom providers start the container with the following command:
+
+```js
+const container = await new KeycloakContainer()
+    .withProviders('/path/to/providers')
+    .start();
+```
+
 ### With health
 
 To enable Keycloaks health endpoint start the container with the following command:

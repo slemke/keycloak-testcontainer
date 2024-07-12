@@ -35,6 +35,14 @@ export class KeycloakContainer extends GenericContainer {
 		return this;
 	}
 
+	public withProviders(source: string): this {
+		this.withCopyDirectoriesToContainer([{
+			source,
+			target: Keycloak.PROVIDERS_PATH
+		}]);
+		return this;
+	}
+
 	public withDatabase(options: DatabaseOptions): this {
 		this.configuration.withDatabase(options);
 		return this;
