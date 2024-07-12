@@ -63,6 +63,11 @@ export class Configuration {
 		return this;
 	}
 
+	public withManagementPath(managementPath: string): this {
+		this.environmentBuilder.withManagementPath(managementPath);
+		return this;
+	}
+
 	public getCommands(): string[] {
 		return this.commandsBuilder.build();
 	}

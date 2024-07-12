@@ -6,7 +6,7 @@ import { DatabaseOptions } from '../configuration/commands.js';
 import { AdminUser } from '../configuration/environment.js';
 import { Keycloak } from '../keycloak.js';
 import { StartedKeycloakContainer } from './started-container.js';
-import { Configuration } from './configuration.js'
+import { Configuration } from './configuration.js';
 
 export class KeycloakContainer extends GenericContainer {
 
@@ -62,6 +62,11 @@ export class KeycloakContainer extends GenericContainer {
 
 	public withManagementPort(managementPort: number): this {
 		this.configuration.withManagementPort(managementPort);
+		return this;
+	}
+
+	public withManagementPath(managementPath: string): this {
+		this.configuration.withManagementPath(managementPath);
 		return this;
 	}
 

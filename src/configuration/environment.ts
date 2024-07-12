@@ -18,6 +18,8 @@ export class EnvironmentBuilder {
 
 	private managementPort: number = 9000;
 
+	private managementPath = '/';
+
 	public withHostname(hostname: string) {
 		this.hostname = hostname;
 	}
@@ -34,12 +36,17 @@ export class EnvironmentBuilder {
 		return this.managementPort;
 	}
 
+	public withManagementPath(managementPath: string) {
+		this.managementPath = managementPath;
+	}
+
 	public build(): { [key: string]: string } {
 		const { username, password } = this.adminUser;
 		return {
 			KEYCLOAK_ADMIN: username,
 			KEYCLOAK_ADMIN_PASSWORD: password,
 			KC_HTTP_MANAGEMENT_PORT: this.managementPort.toString(),
+			KC_HTTP_MANAGEMENT_RELATIVE_PATH: this.managementPath,
 			...(this.hostname && { KC_HOSTNAME: this.hostname })
 		};
 	}
