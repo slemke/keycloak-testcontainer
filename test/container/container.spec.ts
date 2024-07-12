@@ -45,6 +45,19 @@ describe.sequential('Container', () => {
 		);
 	});
 
+	it('should be able to run with different management path', async () => {
+		const nonDefaultManagementPath = '/admin';
+		const startedContainer = await initCustomKeycloakContainer()
+			.withManagementPath(nonDefaultManagementPath)
+			.start();
+
+		await verifyMetricsEndpointAvailability(
+			startedContainer,
+			managementPort,
+			nonDefaultManagementPath
+		);
+	});
+
 	const initCustomKeycloakContainer = (): KeycloakContainer => {
 		return new KeycloakContainer()
 			.withHostname('keycloak')
@@ -66,8 +79,9 @@ describe.sequential('Container', () => {
 		expect(healthResponse.status).toBe(200);
 	};
 
-	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer, port: number) => {
-		const metricsResponse = await axios.get(`http://localhost:${container.getMappedPort(port)}/metrics`, {
+	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer, port: number, path = '/') => {
+		const managementPath = path === '/' ? '/metrics' : `${path}/metrics`;
+		const metricsResponse = await axios.get(`http://localhost:${container.getMappedPort(port)}${managementPath}`, {
 			timeout: 10000
 		});
 		expect(metricsResponse.status).toBe(200);
