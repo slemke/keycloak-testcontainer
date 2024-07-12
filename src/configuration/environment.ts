@@ -16,6 +16,8 @@ export class EnvironmentBuilder {
 
 	private hostname: string | undefined;
 
+	private managementPort: number = 9000;
+
 	public withHostname(hostname: string) {
 		this.hostname = hostname;
 	}
@@ -24,11 +26,20 @@ export class EnvironmentBuilder {
 		this.adminUser = adminUser;
 	}
 
+	public withManagementPort(port: number) {
+		this.managementPort = port;
+	}
+
+	public getManagementPort(): number {
+		return this.managementPort;
+	}
+
 	public build(): { [key: string]: string } {
 		const { username, password } = this.adminUser;
 		return {
 			KEYCLOAK_ADMIN: username,
 			KEYCLOAK_ADMIN_PASSWORD: password,
+			KC_HTTP_MANAGEMENT_PORT: this.managementPort.toString(),
 			...(this.hostname && { KC_HOSTNAME: this.hostname })
 		};
 	}

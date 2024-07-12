@@ -9,8 +9,8 @@ describe.sequential('Container', () => {
 	it('should start new custom keycloak container', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
 
-		await verifyHealthEndpointAvailability(startedContainer);
-		await verifyMetricsEndpointAvailability(startedContainer);
+		await verifyHealthEndpointAvailability(startedContainer, managementPort);
+		await verifyMetricsEndpointAvailability(startedContainer, managementPort);
 		await startedContainer.stop({ timeout: 10000 });
 	});
 
@@ -33,6 +33,18 @@ describe.sequential('Container', () => {
 		await startedContainer.stop({ timeout: 10000 });
 	});
 
+	it('should be able to run with different management port', async () => {
+		const nonDefaultManagementPort = 9001;
+		const startedContainer = await initCustomKeycloakContainer()
+			.withManagementPort(9001)
+			.start();
+
+		await verifyMetricsEndpointAvailability(
+			startedContainer,
+			nonDefaultManagementPort
+		);
+	});
+
 	const initCustomKeycloakContainer = (): KeycloakContainer => {
 		return new KeycloakContainer()
 			.withHostname('keycloak')
@@ -47,15 +59,15 @@ describe.sequential('Container', () => {
 			.withMetrics();
 	};
 
-	const verifyHealthEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const healthResponse = await axios.get(`http://localhost:${container.getMappedPort(managementPort)}/health`, {
+	const verifyHealthEndpointAvailability = async (container: StartedKeycloakContainer, port: number) => {
+		const healthResponse = await axios.get(`http://localhost:${container.getMappedPort(port)}/health`, {
 			timeout: 10000
 		});
 		expect(healthResponse.status).toBe(200);
 	};
 
-	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer) => {
-		const metricsResponse = await axios.get(`http://localhost:${container.getMappedPort(managementPort)}/metrics`, {
+	const verifyMetricsEndpointAvailability = async (container: StartedKeycloakContainer, port: number) => {
+		const metricsResponse = await axios.get(`http://localhost:${container.getMappedPort(port)}/metrics`, {
 			timeout: 10000
 		});
 		expect(metricsResponse.status).toBe(200);

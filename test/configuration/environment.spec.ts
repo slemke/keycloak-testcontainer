@@ -5,7 +5,8 @@ describe('Environment Builder', () => {
 
 	const defaultEnvironmentConfiguration = {
 		KEYCLOAK_ADMIN: 'admin',
-		KEYCLOAK_ADMIN_PASSWORD: 'admin'
+		KEYCLOAK_ADMIN_PASSWORD: 'admin',
+		KC_HTTP_MANAGEMENT_PORT: '9000'
 	};
 
 	it('should build default environment configuration', () => {
@@ -30,6 +31,7 @@ describe('Environment Builder', () => {
 			password: 'customPassword'
 		});
 		expect(builder.build()).toStrictEqual({
+			...defaultEnvironmentConfiguration,
 			KEYCLOAK_ADMIN: 'customAdmin',
 			KEYCLOAK_ADMIN_PASSWORD: 'customPassword'
 		});

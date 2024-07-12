@@ -2,41 +2,28 @@ import {
 	GenericContainer,
 	Wait
 } from 'testcontainers';
-import { CommandsBuilder, DatabaseOptions } from '../configuration/commands.js';
-import { AdminUser, EnvironmentBuilder, defaultAdminUser } from '../configuration/environment.js';
+import { DatabaseOptions } from '../configuration/commands.js';
+import { AdminUser } from '../configuration/environment.js';
 import { Keycloak } from '../keycloak.js';
 import { StartedKeycloakContainer } from './started-container.js';
+import { Configuration } from './configuration.js'
 
 export class KeycloakContainer extends GenericContainer {
 
-	private defaultPort = 8080;
-
-	private managementPort = 9000;
-
-	private ports: number[] = [
-		this.defaultPort,
-		this.managementPort
-	];
-
-	private commandsBuilder: CommandsBuilder;
-
-	private environmentBuilder: EnvironmentBuilder;
-
-	private adminUser: AdminUser = defaultAdminUser;
+	private configuration: Configuration;
 
 	constructor() {
 		super('quay.io/keycloak/keycloak:latest');
-		this.commandsBuilder = new CommandsBuilder();
-		this.environmentBuilder = new EnvironmentBuilder();
+		this.configuration = new Configuration();
 	}
 
 	public withHostname(hostname: string): this {
-		this.environmentBuilder.withHostname(hostname);
+		this.configuration.withHostName(hostname);
 		return this;
 	}
 
 	public withHealth(): this {
-		this.commandsBuilder.withHealth();
+		this.configuration.withHealth();
 		return this;
 	}
 
@@ -49,36 +36,40 @@ export class KeycloakContainer extends GenericContainer {
 	}
 
 	public withDatabase(options: DatabaseOptions): this {
-		this.commandsBuilder.withDatabase(options);
+		this.configuration.withDatabase(options);
 		return this;
 	}
 
 	public withMetrics(): this {
-		this.commandsBuilder.withMetrics();
+		this.configuration.withMetrics();
 		return this;
 	}
 
 	public withFeatures(features: string[]): this {
-		this.commandsBuilder.withFeatures(features);
+		this.configuration.withFeatures(features);
 		return this;
 	}
 
 	public withDisabledFeatures(disabledFeatures: string[]): this {
-		this.commandsBuilder.withDisabledFeatures(disabledFeatures);
+		this.configuration.withDisabledFeatures(disabledFeatures);
 		return this;
 	}
 
 	public withAdminUser(adminUser: AdminUser): this {
-		this.adminUser = adminUser;
-		this.environmentBuilder.withAdminUser(adminUser);
+		this.configuration.withAdminUser(adminUser);
+		return this;
+	}
+
+	public withManagementPort(managementPort: number): this {
+		this.configuration.withManagementPort(managementPort);
 		return this;
 	}
 
 	public override async start(): Promise<StartedKeycloakContainer> {
-		this.withExposedPorts(...this.ports);
+		this.withExposedPorts(...this.configuration.getPorts());
 		this.withWaitStrategy(Wait.forLogMessage(/(.*)Running the server in development mode(.*)/));
-		this.withCommand(this.commandsBuilder.build());
-		this.withEnvironment(this.environmentBuilder.build());
-		return new StartedKeycloakContainer(await super.start(), this.adminUser);
+		this.withCommand(this.configuration.getCommands());
+		this.withEnvironment(this.configuration.getEnvironmentConfiguration());
+		return new StartedKeycloakContainer(await super.start(), this.configuration.getAdminUser());
 	}
 }
