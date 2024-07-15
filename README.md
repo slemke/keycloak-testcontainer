@@ -37,7 +37,7 @@ import KeycloakContainer from 'keycloak-testcontainer';
 
 describe('Keycloak Testcontainer Example', () => {
 
-    it('should run against keycloak', () => {
+    it('should run against keycloak', async () => {
         const container = await new KeycloakContainer().start();
 
         // do something with the container
