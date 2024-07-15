@@ -169,6 +169,16 @@ const container = await new KeycloakContainer()
     .start();
 ```
 
+### With custom hostname path
+
+To run Keycloak with a custom hostname path (default: `/`) start the container with the following command:
+
+```js
+const container = await new KeycloakContainer()
+    .withHostnamePath('/auth')
+    .start();
+```
+
 ### With management port
 
 You can change the default management port (`9000`) with the following command:
