@@ -78,6 +78,11 @@ export class KeycloakContainer extends GenericContainer {
 		return this;
 	}
 
+	public withHostnamePath(hostnamePath: string): this {
+		this.configuration.withHostnamePath(hostnamePath);
+		return this;
+	}
+
 	public override async start(): Promise<StartedKeycloakContainer> {
 		this.withExposedPorts(...this.configuration.getPorts());
 		this.withWaitStrategy(Wait.forLogMessage(/(.*)Running the server in development mode(.*)/));

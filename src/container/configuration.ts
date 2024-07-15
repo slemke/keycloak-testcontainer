@@ -68,6 +68,11 @@ export class Configuration {
 		return this;
 	}
 
+	public withHostnamePath(path: string): this {
+		this.environmentBuilder.withHostnamePath(path);
+		return this;
+	}
+
 	public getCommands(): string[] {
 		return this.commandsBuilder.build();
 	}
