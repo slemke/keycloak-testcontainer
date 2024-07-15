@@ -58,9 +58,20 @@ describe.sequential('Container', () => {
 		);
 	});
 
+	it('shoule be able to run with different hostname path', async () => {
+		const nonDefaultHostnamePath = '/auth';
+		const startedContainer = await initCustomKeycloakContainer()
+			.withHostnamePath(nonDefaultHostnamePath)
+			.start();
+
+			const response = await axios.get(`http://localhost:${startedContainer.getMappedPort(8080)}/auth`, {
+				timeout: 10000
+			});
+			expect(response.status).toBe(200);
+	});
+
 	const initCustomKeycloakContainer = (): KeycloakContainer => {
 		return new KeycloakContainer()
-			.withHostname('keycloak')
 			.withHealth()
 			.withFeatures([
 				'recovery-codes',

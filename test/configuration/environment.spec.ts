@@ -7,7 +7,8 @@ describe('Environment Builder', () => {
 		KEYCLOAK_ADMIN: 'admin',
 		KEYCLOAK_ADMIN_PASSWORD: 'admin',
 		KC_HTTP_MANAGEMENT_PORT: '9000',
-		KC_HTTP_MANAGEMENT_RELATIVE_PATH: '/'
+		KC_HTTP_MANAGEMENT_RELATIVE_PATH: '/',
+		KC_HTTP_RELATIVE_PATH: '/'
 	};
 
 	it('should build default environment configuration', () => {

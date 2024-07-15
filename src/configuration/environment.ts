@@ -20,6 +20,8 @@ export class EnvironmentBuilder {
 
 	private managementPath = '/';
 
+	private hostnamePath = '/';
+
 	public withHostname(hostname: string) {
 		this.hostname = hostname;
 	}
@@ -40,6 +42,10 @@ export class EnvironmentBuilder {
 		this.managementPath = managementPath;
 	}
 
+	public withHostnamePath(path: string) {
+		this.hostnamePath = path;
+	}
+
 	public build(): { [key: string]: string } {
 		const { username, password } = this.adminUser;
 		return {
@@ -47,7 +53,8 @@ export class EnvironmentBuilder {
 			KEYCLOAK_ADMIN_PASSWORD: password,
 			KC_HTTP_MANAGEMENT_PORT: this.managementPort.toString(),
 			KC_HTTP_MANAGEMENT_RELATIVE_PATH: this.managementPath,
-			...(this.hostname && { KC_HOSTNAME: this.hostname })
+			...(this.hostname && { KC_HOSTNAME: this.hostname }),
+			KC_HTTP_RELATIVE_PATH: this.hostnamePath
 		};
 	}
 }
