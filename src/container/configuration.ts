@@ -32,6 +32,11 @@ export class Configuration {
 		return this;
 	}
 
+	public withRealmImport(): this {
+        this.commandsBuilder.withRealmImport();
+        return this;
+    }
+
 	public withDatabase(options: DatabaseOptions): this {
 		this.commandsBuilder.withDatabase(options);
 		return this;
