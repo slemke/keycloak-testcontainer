@@ -32,6 +32,7 @@ export class KeycloakContainer extends GenericContainer {
 			source,
 			target: Keycloak.IMPORT_PATH
 		}]);
+		this.configuration.withRealmImport();
 		return this;
 	}
 
