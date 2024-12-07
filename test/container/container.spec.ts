@@ -6,13 +6,47 @@ describe.sequential('Container', () => {
 
 	const managementPort = 9000;
 
-	it('should start new custom keycloak container', async () => {
+	it.only('should start new custom keycloak container', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
 
 		await verifyHealthEndpointAvailability(startedContainer, managementPort);
 		await verifyMetricsEndpointAvailability(startedContainer, managementPort);
 		await startedContainer.stop({ timeout: 10000 });
 	});
+
+	it('should init new keycloak container with latest version', () => {
+		const container = new KeycloakContainer();
+		expect(container.getImageName()).toMatchObject({
+			"image": "keycloak/keycloak",
+			"registry": "quay.io",
+			"string": "quay.io/keycloak/keycloak:latest",
+			"tag": "latest"
+		});
+	});
+
+	it('should init new custom keycloak container with different tag', () => {
+		const container = new KeycloakContainer({ tag: '25' });
+
+		expect(container.getImageName()).toMatchObject({
+			"image": "keycloak/keycloak",
+			"registry": "quay.io",
+			"string": "quay.io/keycloak/keycloak:25",
+			"tag": "25"
+		});
+	});
+
+	it('should init new custom keycloak container based on a different registry', () => {
+		const container = new KeycloakContainer({
+			registry: 'intern.org/keycloak/keycloak',
+			tag: 'custom'
+		});
+		expect(container.getImageName()).toMatchObject({
+			"image": "keycloak/keycloak",
+			"registry": "intern.org",
+			"string": "intern.org/keycloak/keycloak:custom",
+			"tag": "custom"
+		});
+	})
 
 	it('should be able to use admin client', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();

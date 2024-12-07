@@ -62,6 +62,53 @@ const container = await new KeycloakContainer()
 
 By default, every container is always a Keycloak in development mode.
 
+
+### Starting a container with a custom version
+
+You can start the container with a custom version by providing a tag (default: `latest`) to the constructor.
+A list of possible values for the tag can be found on [Keycloaks repository page on quay.io](https://quay.io/repository/keycloak/keycloak?tab=tags).
+
+```js
+import KeycloakContainer from 'keycloak-testcontainer';
+
+const container = await new KeycloakContainer({ tag: '26.0' })
+    .start();
+```
+
+Using the example above a Keycloak container should start with version 26.0 as long as the image with the tag is available on quay.io. If the tag you are using is not available you'll see an error similar to the error below:
+
+```
+Error: (HTTP code 404) unexpected - manifest for quay.io/keycloak/keycloak:21 not found: manifest unknown: manifest unknown
+```
+
+### Starting a container with a custom registry
+
+If you want to run an image from a different registry you can provide a registry to the container like so:
+
+```js
+import KeycloakContainer from 'keycloak-testcontainer';
+
+const container = await new KeycloakContainer({
+        registry: 'intern.org/keycloak/keycloak'
+    })
+    .start();
+```
+
+With the custom registry the testcontainer tries to start with the following image: `intern.org/keycloak/keycloak:latest`.
+You also can combine this with a custom tag:
+
+```js
+import KeycloakContainer from 'keycloak-testcontainer';
+
+const container = await new KeycloakContainer({
+        registry: 'intern.org/keycloak/keycloak',
+        tag: 'intern-rc-22'
+    })
+    .start();
+```
+
+This would result in the following image being used:  `intern.org/keycloak/keycloak:intern-rc-22`
+
 ### Starting a container with Keycloak commands
 
 You can run this testcontainer with a bunch of different commands to obtain different Keycloak functionality. For a deeper explaination and up to date documentation have a look at the [Keycloak guides](https://www.keycloak.org/guides).

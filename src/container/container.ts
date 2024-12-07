@@ -8,13 +8,25 @@ import { Keycloak } from '../keycloak.js';
 import { StartedKeycloakContainer } from './started-container.js';
 import { Configuration } from './configuration.js';
 
+interface KeycloakContainerOptions {
+	registry?: string
+	tag?: string
+}
+
 export class KeycloakContainer extends GenericContainer {
 
 	private configuration: Configuration;
 
-	constructor() {
-		super('quay.io/keycloak/keycloak:latest');
+	constructor(options?: KeycloakContainerOptions) {
+		const registry = options?.registry ?? 'quay.io/keycloak/keycloak';
+		const tag = options?.tag ?? 'latest';
+		const imageName = `${registry}:${tag}`;
+		super(imageName);
 		this.configuration = new Configuration();
+	}
+
+	public getImageName() {
+		return this.imageName;
 	}
 
 	public withHostname(hostname: string): this {
