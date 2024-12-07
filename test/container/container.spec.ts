@@ -6,7 +6,7 @@ describe.sequential('Container', () => {
 
 	const managementPort = 9000;
 
-	it.only('should start new custom keycloak container', async () => {
+	it('should start new custom keycloak container', async () => {
 		const startedContainer = await initCustomKeycloakContainer().start();
 
 		await verifyHealthEndpointAvailability(startedContainer, managementPort);
