@@ -49,7 +49,7 @@
     "vitest": "2.1.8"
   },
   "dependencies": {
-    "@keycloak/keycloak-admin-client": "26.0.7",
+    "@keycloak/keycloak-admin-client": "26.0.8",
     "testcontainers": "10.16.0"
   }
 }
