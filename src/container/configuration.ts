@@ -27,6 +27,10 @@ export class Configuration {
 		return this;
 	}
 
+	public getHostNamePath(): string {
+		return this.environmentBuilder.getHostNamePath();
+	}
+
 	public withHealth(): this {
 		this.commandsBuilder.withHealth();
 		return this;
