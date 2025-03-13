@@ -92,7 +92,7 @@ describe.sequential('Container', () => {
 		);
 	});
 
-	it('shoule be able to run with different hostname path', async () => {
+	it('should be able to run with different hostname path', async () => {
 		const nonDefaultHostnamePath = '/auth';
 		const startedContainer = await initCustomKeycloakContainer()
 			.withHostnamePath(nonDefaultHostnamePath)

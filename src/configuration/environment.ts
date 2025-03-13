@@ -46,6 +46,10 @@ export class EnvironmentBuilder {
 		this.hostnamePath = path;
 	}
 
+	public getHostNamePath(): string {
+		return this.hostnamePath
+	}
+
 	public build(): { [key: string]: string } {
 		const { username, password } = this.adminUser;
 		return {

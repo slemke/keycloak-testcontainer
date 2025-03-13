@@ -97,8 +97,13 @@ export class KeycloakContainer extends GenericContainer {
 	}
 
 	public override async start(): Promise<StartedKeycloakContainer> {
+		const hostNamePath = this.configuration.getHostNamePath();
+		const endpoint = hostNamePath === '/'
+			? '/realms/master'
+			: `${hostNamePath}/realms/master`;
+
 		this.withExposedPorts(...this.configuration.getPorts());
-		this.withWaitStrategy(Wait.forLogMessage(/(.*)Running the server in development mode(.*)/));
+		this.withWaitStrategy(Wait.forHttp(endpoint, this.configuration.getPorts()[0]));
 		this.withCommand(this.configuration.getCommands());
 		this.withEnvironment(this.configuration.getEnvironmentConfiguration());
 		return new StartedKeycloakContainer(await super.start(), this.configuration.getAdminUser());
