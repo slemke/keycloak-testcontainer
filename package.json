@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "26.2.4",
-    "testcontainers": "10.25.0"
+    "testcontainers": "10.26.0"
   }
 }
