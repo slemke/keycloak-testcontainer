@@ -26,7 +26,7 @@ for older Keycloak versions.
 
 ## Node Version Support
 
-This package supports node.js version 18 and higher. This package has also been build and tested for non-lts releases.
+This package supports node.js version 20.19.0 and higher. This package has also been build and tested for non-lts releases.
 
 ## Example
 
