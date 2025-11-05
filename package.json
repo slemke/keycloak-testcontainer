@@ -42,11 +42,11 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "8.46.3",
     "@typescript-eslint/parser": "8.46.3",
-    "@vitest/coverage-v8": "4.0.6",
+    "@vitest/coverage-v8": "4.0.7",
     "axios": "1.13.1",
     "eslint": "9.39.1",
     "typescript": "5.9.3",
-    "vitest": "4.0.6"
+    "vitest": "4.0.7"
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "26.4.2",
