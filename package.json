@@ -43,7 +43,7 @@
     "@typescript-eslint/eslint-plugin": "8.58.1",
     "@typescript-eslint/parser": "8.58.1",
     "@vitest/coverage-v8": "4.0.18",
-    "axios": "1.14.0",
+    "axios": "1.15.0",
     "eslint": "10.2.0",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
