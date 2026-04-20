@@ -44,7 +44,7 @@
     "@typescript-eslint/parser": "8.58.2",
     "@vitest/coverage-v8": "4.0.18",
     "axios": "1.15.0",
-    "eslint": "10.2.0",
+    "eslint": "10.2.1",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },
