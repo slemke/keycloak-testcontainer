@@ -46,7 +46,7 @@
     "axios": "1.17.0",
     "eslint": "10.4.1",
     "typescript": "5.9.3",
-    "vitest": "4.0.18"
+    "vitest": "4.1.0"
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "26.6.3",
