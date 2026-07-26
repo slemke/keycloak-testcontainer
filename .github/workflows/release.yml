@@ -1,0 +1,35 @@
+name: Release
+on:
+  release:
+    types: [published]
+permissions:
+    contents: read
+    id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Setup Node v26
+        uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Pull Keycloak Image
+        run: docker pull quay.io/keycloak/keycloak:latest
+
+      - name: Test Package
+        run: npm run test
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Publish
+        run: npm publish
