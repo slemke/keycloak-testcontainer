@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import axios from 'axios';
 import KeycloakContainer, { StartedKeycloakContainer } from '../../src/index.js';
 
-describe.sequential('Container', () => {
+describe('Container', { concurrent: false }, () => {
 
 	const managementPort = 9000;
 
